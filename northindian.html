@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SpiceLane – North Indian</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+<style>
+:root{--saffron:#FF6B00;--saffron-light:#FF9240;--saffron-pale:#FFF3E8;--deep:#1A0A00;--cream:#FFF8F0;--white:#FFFFFF;--text:#2D1800;--muted:#8A6A50;--border:#F0DBC8;--nav-h:72px;}
+[data-theme="dark"]{--cream:#1A1208;--white:#261A10;--text:#F5E8D8;--muted:#B89870;--border:#3A2A1A;}
+*{margin:0;padding:0;box-sizing:border-box;transition:background-color 0.3s,color 0.2s;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);}
+.navbar{height:var(--nav-h);background:var(--white);box-shadow:0 2px 20px rgba(26,10,0,0.08);position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;padding:0 24px;gap:16px;}
+.brand-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--saffron),var(--saffron-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 3px 10px rgba(255,107,0,0.3);}
+.brand-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--deep);}
+.brand-name span{color:var(--saffron);}
+[data-theme="dark"] .brand-name{color:var(--text);}
+.nav-btn{display:flex;align-items:center;gap:6px;padding:9px 16px;border:2px solid var(--border);border-radius:50px;background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all 0.2s;}
+.nav-btn:hover{border-color:var(--saffron);color:var(--saffron);}
+.cart-btn{position:relative;}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--saffron);color:#fff;border-radius:50%;width:20px;height:20px;font-size:0.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.page-hero{margin-top:var(--nav-h);height:340px;position:relative;overflow:hidden;}
+.page-hero img{width:100%;height:100%;object-fit:cover;filter:brightness(0.4);}
+.page-hero-content{position:absolute;inset:0;display:flex;align-items:center;padding:0 8%;}
+.hero-tag{background:var(--saffron);color:#fff;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:50px;display:inline-block;margin-bottom:14px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.1;margin-bottom:10px;}
+.hero-sub{color:rgba(255,255,255,0.78);font-size:1rem;max-width:440px;}
+.breadcrumb-area{background:var(--white);padding:14px 0;border-bottom:1px solid var(--border);}
+.bc{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--muted);}
+.bc a{color:var(--saffron);text-decoration:none;font-weight:500;}
+.filter-bar{background:var(--white);padding:16px 0;border-bottom:1px solid var(--border);position:sticky;top:var(--nav-h);z-index:99;}
+.filter-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;}
+.filter-scroll::-webkit-scrollbar{display:none;}
+.f-btn{padding:8px 20px;border:2px solid var(--border);border-radius:50px;background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+.f-btn:hover,.f-btn.active{background:var(--saffron);border-color:var(--saffron);color:#fff;}
+.dishes-section{padding:52px 0;}
+.dish-card{background:var(--white);border-radius:18px;overflow:hidden;box-shadow:0 6px 24px rgba(26,10,0,0.09);border:1px solid var(--border);transition:transform 0.3s,box-shadow 0.3s;height:100%;}
+.dish-card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(26,10,0,0.13);}
+.dish-img{position:relative;overflow:hidden;height:190px;}
+.dish-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+.dish-card:hover .dish-img img{transform:scale(1.08);}
+.dish-badge{position:absolute;top:12px;left:12px;background:var(--saffron);color:#fff;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:50px;letter-spacing:0.5px;}
+.veg-dot{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:6px;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:700;background:rgba(255,255,255,0.9);}
+.veg-dot.veg{border-color:#2ECC71;color:#2ECC71;}
+.veg-dot.nonveg{border-color:#E74C3C;color:#E74C3C;}
+.dish-body{padding:16px;}
+.dish-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:5px;}
+.dish-desc{font-size:0.82rem;color:var(--muted);margin-bottom:12px;line-height:1.55;}
+.dish-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.dish-tag{background:var(--saffron-pale);color:var(--saffron);font-size:0.72rem;font-weight:600;padding:3px 9px;border-radius:50px;}
+.dish-footer{display:flex;align-items:center;justify-content:space-between;}
+.dish-price{font-size:1.15rem;font-weight:700;color:var(--saffron);}
+.dish-rating{display:flex;align-items:center;gap:4px;font-size:0.8rem;color:var(--muted);}
+.dish-rating i{color:#F59E0B;}
+.qty-control{display:none;align-items:center;gap:8px;}
+.qty-control.show{display:flex;}
+.qty-btn{width:30px;height:30px;border-radius:50%;border:2px solid var(--saffron);background:transparent;color:var(--saffron);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;transition:all 0.2s;}
+.qty-btn:hover{background:var(--saffron);color:#fff;}
+.qty-num{font-weight:700;font-size:0.95rem;min-width:20px;text-align:center;color:var(--text);}
+.add-btn{background:var(--saffron);color:#fff;border:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 3px 10px rgba(255,107,0,0.3);}
+.add-btn:hover{transform:scale(1.1);}
+.float-cart{position:fixed;bottom:28px;right:28px;z-index:999;}
+.float-cart-btn{background:linear-gradient(135deg,var(--saffron),var(--saffron-light));color:#fff;border:none;padding:14px 24px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;box-shadow:0 6px 24px rgba(255,107,0,0.4);display:flex;align-items:center;gap:10px;text-decoration:none;transition:transform 0.2s;}
+.float-cart-btn:hover{transform:translateY(-2px);color:#fff;}
+.float-badge{background:#fff;color:var(--saffron);border-radius:50px;padding:2px 10px;font-size:0.85rem;}
+.toast-cart{position:fixed;top:88px;right:24px;z-index:9999;background:var(--deep);color:#fff;padding:14px 20px;border-radius:14px;font-size:0.9rem;font-weight:500;box-shadow:0 8px 28px rgba(0,0,0,0.25);display:flex;align-items:center;gap:10px;transform:translateX(120%);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);}
+.toast-cart.show{transform:translateX(0);}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+footer{background:var(--deep);padding:32px 0;text-align:center;color:rgba(255,255,255,0.5);font-size:0.85rem;border-top:1px solid rgba(255,255,255,0.07);}
+footer a{color:rgba(255,255,255,0.5);text-decoration:none;}
+footer a:hover{color:var(--saffron);}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="main.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+    <div class="brand-icon">🍛</div>
+    <div class="brand-name d-none d-sm-block">Spice<span>Lane</span></div>
+  </a>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+    <a href="main.html" class="nav-btn"><i class="bi bi-house-door"></i> <span class="d-none d-md-inline">Home</span></a>
+    <a href="cart.html" class="nav-btn cart-btn">
+      <i class="bi bi-cart3"></i>
+      <span id="navCartCount" class="cart-badge">0</span>
+    </a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1400&q=80" alt="North Indian"/>
+  <div class="page-hero-content">
+    <div>
+      <span class="hero-tag">🫓 North Indian</span>
+      <h1 class="hero-title">Royal Flavours of<br/>the North</h1>
+      <p class="hero-sub">Buttery curries, tandoor-kissed breads — the grandeur of Mughal kitchens.</p>
+    </div>
+  </div>
+</div>
+
+<div class="breadcrumb-area">
+  <div class="container">
+    <div class="bc"><a href="main.html"><i class="bi bi-house-door"></i> Home</a><i class="bi bi-chevron-right"></i><span>North Indian</span></div>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <div class="container">
+    <div class="filter-scroll">
+      <button class="f-btn active" onclick="filter(this,'all')">🍽️ All</button>
+      <button class="f-btn" onclick="filter(this,'curry')">🍛 Curries</button>
+      <button class="f-btn" onclick="filter(this,'bread')">🫓 Breads</button>
+      <button class="f-btn" onclick="filter(this,'biryani')">🍚 Biryani</button>
+      <button class="f-btn" onclick="filter(this,'starter')">🥗 Starters</button>
+      <button class="f-btn" onclick="filter(this,'dessert')">🍮 Desserts</button>
+      <button class="f-btn" onclick="filter(this,'veg')">🟢 Veg Only</button>
+    </div>
+  </div>
+</div>
+
+<div class="dishes-section">
+  <div class="container">
+    <div class="row g-4" id="dishGrid"></div>
+  </div>
+</div>
+
+<div class="float-cart" id="floatCart" style="display:none;">
+  <a href="cart.html" class="float-cart-btn">
+    <i class="bi bi-cart3"></i>View Cart
+    <span class="float-badge" id="floatCount">0</span>
+  </a>
+</div>
+
+<div class="toast-cart" id="cartToast">
+  <i class="bi bi-check-circle-fill" style="color:var(--saffron);font-size:1.2rem;"></i>
+  <span id="cartToastMsg">Item added!</span>
+</div>
+
+<footer>
+  <div class="container">
+    <div style="margin-bottom:8px;"><a href="main.html">Home</a> &nbsp;·&nbsp;<a href="southindian.html">South Indian</a> &nbsp;·&nbsp;<a href="chinese.html">Chinese</a> &nbsp;·&nbsp;<a href="cart.html">Cart</a></div>
+    © 2025 SpiceLane. All rights reserved.
+  </div>
+</footer>
+
+<script>
+const DISHES=[
+  {id:'ni1',name:'Butter Chicken',cat:'curry',veg:false,price:289,rating:4.9,reviews:3420,badge:'#1 Rated',img:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500&q=80',desc:'Tender chicken in a velvety tomato-cream sauce with butter and aromatic spices. The dish that conquered the world.',tags:['Creamy','Mild','Classic']},
+  {id:'ni2',name:'Dal Makhani',cat:'curry',veg:true,price:229,rating:4.8,reviews:1890,badge:'Vegetarian',img:'https://www.maggi.in//sites/default/files/srh_recipes/eb6c6566a4dc1e241ec7231984265d61.jpg',desc:'Slow-cooked overnight black lentils in butter, cream and tomato. Rich, smoky and utterly comforting.',tags:['Creamy','Protein','Punjabi']},
+  {id:'ni3',name:'Palak Paneer',cat:'curry',veg:true,price:249,rating:4.7,reviews:1240,badge:'Healthy',img:'https://t4.ftcdn.net/jpg/02/70/49/01/360_F_270490182_2ZuHrJ3TqFSFVgTswX7QwqGYkyPxlCAd.jpg',desc:'Fresh paneer cubes in a smooth, spiced spinach gravy. Iron-rich and absolutely delicious.',tags:['Healthy','Green','Classic']},
+  {id:'ni4',name:'Rogan Josh',cat:'curry',veg:false,price:319,rating:4.8,reviews:940,badge:'Kashmiri',img:'https://www.karriklub.com/wp-content/uploads/2018/10/Mutton-Rogan-Josh.jpg',desc:'Aromatic Kashmiri lamb curry with whole spices, Kashmiri chilli and yoghurt. A royal delicacy.',tags:['Aromatic','Kashmiri','Lamb']},
+  {id:'ni5',name:'Chicken Biryani',cat:'biryani',veg:false,price:329,rating:4.9,reviews:4200,badge:'All-Time Favourite',img:'https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500&q=80',desc:'Fragrant basmati rice layered with marinated chicken, saffron and fried onions. Dum-cooked perfection.',tags:['Aromatic','Saffron','Dum']},
+  {id:'ni6',name:'Veg Biryani',cat:'biryani',veg:true,price:249,rating:4.6,reviews:1120,badge:'Garden Fresh',img:'https://img.freepik.com/premium-photo/indian-vegetable-pulav-biryani-made-using-basmati-rice-served-terracotta-bowl-selective-focus_466689-55606.jpg?semt=ais_incoming&w=740&q=80',desc:'Seasonal vegetables layered with aromatic basmati rice and whole spices. Pure vegetarian indulgence.',tags:['Veg','Aromatic','Saffron']},
+  {id:'ni7',name:'Butter Naan',cat:'bread',veg:true,price:49,rating:4.7,reviews:2800,badge:'Classic',img:'https://t3.ftcdn.net/jpg/08/95/50/04/360_F_895500474_IDUMxbOGEBn29tyPyjG8oLEEWlK8ZlOg.jpg',desc:'Fluffy leavened bread baked in tandoor and brushed generously with butter. The perfect curry companion.',tags:['Butter','Tandoor','Classic']},
+  {id:'ni8',name:'Laccha Paratha',cat:'bread',veg:true,price:59,rating:4.6,reviews:760,badge:'Flaky',img:'https://img.freepik.com/premium-photo/indian-flatbread-called-laccha-paratha-made-up-layers-using-wheat-flour-maida_466689-52253.jpg?semt=ais_incoming&w=740&q=80',desc:'Multi-layered whole wheat flatbread, crispy outside and soft inside. Cooked with ghee on a tawa.',tags:['Flaky','Ghee','Layered']},
+  {id:'ni9',name:'Paneer Tikka',cat:'starter',veg:true,price:249,rating:4.8,reviews:1560,badge:'Chef Special',img:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=500&q=80',desc:'Marinated cottage cheese cubes grilled in a clay oven. Smoky, juicy and packed with flavour.',tags:['Smoky','Tandoor','Starter']},
+  {id:'ni10',name:'Seekh Kebab',cat:'starter',veg:false,price:279,rating:4.8,reviews:980,badge:'Grilled',img:'https://www.shutterstock.com/image-photo/sizzling-beef-barbecue-seekh-kabab-600nw-2478707493.jpg',desc:'Minced lamb mixed with herbs and spices, shaped on skewers and grilled over charcoal. Melt-in-mouth.',tags:['Smoky','Lamb','Grilled']},
+  {id:'ni11',name:'Shahi Paneer',cat:'curry',veg:true,price:269,rating:4.7,reviews:830,badge:'Royal',img:'https://t4.ftcdn.net/jpg/08/24/35/87/360_F_824358712_32xGA30Y1XNegYq50MzFMGBJhyk04Pyv.jpg',desc:'Paneer in a rich cashew and cream sauce with saffron and whole cardamom. Mughal royalty on a plate.',tags:['Royal','Creamy','Cashew']},
+  {id:'ni12',name:'Chicken Tikka Masala',cat:'curry',veg:false,price:299,rating:4.9,reviews:2100,badge:'Global Hit',img:'https://www.spicebangla.com/wp-content/uploads/2024/04/chicken-tikka-masala.jpg',desc:'Grilled chicken chunks in a tangy tomato-cream masala sauce. India\'s gift to the world.',tags:['Tangy','Creamy','Global']},
+  {id:'ni13',name:'Chole Bhature',cat:'curry',veg:true,price:169,rating:4.8,reviews:1780,badge:'Street Legend',img:'https://www.shutterstock.com/image-photo/chole-bhature-indian-street-food-600nw-2714165479.jpg',desc:'Spicy Punjabi chickpea curry served with deep-fried puffed bread. The quintessential North Indian breakfast.',tags:['Spicy','Punjabi','Street Food']},
+  {id:'ni14',name:'Gulab Jamun',cat:'dessert',veg:true,price:89,rating:4.8,reviews:2400,badge:'Beloved',img:'https://tiimg.tistatic.com/fp/1/007/638/mouthwatering-soft-hygienically-prepared-sweet-fresh-spongy-black-gulab-jamun-631.jpg',desc:'Soft khoya dumplings fried golden and soaked in rose-cardamom sugar syrup. Served warm.',tags:['Sweet','Warm','Classic']},
+  {id:'ni15',name:'Kheer',cat:'dessert',veg:true,price:99,rating:4.7,reviews:890,badge:'Traditional',img:'https://media.istockphoto.com/id/980089086/photo/rice-pudding-or-kheer-from-india-called-also-called-firnee-served-in-a-bowl-selective-focus.jpg?s=612x612&w=0&k=20&c=k69t8VUFXzoAzQcn0qxdPRdO1BHRqR36gGWpd5PhJ6g=',desc:'Creamy rice pudding slow-cooked in full-fat milk with cardamom, saffron, cashews and raisins.',tags:['Sweet','Creamy','Traditional']},
+  {id:'ni16',name:'Tandoori Chicken',cat:'starter',veg:false,price:319,rating:4.8,reviews:1340,badge:'Iconic',img:'https://www.teaforturmeric.com/wp-content/uploads/2024/08/Tandoori-Chicken-32-728x1092.jpg',desc:'Whole chicken marinated in yoghurt and spices, charred beautifully in a clay tandoor oven.',tags:['Smoky','Iconic','Spicy']},
+];
+
+function getCart(){return JSON.parse(localStorage.getItem('spiceCart')||'[]');}
+function saveCart(c){localStorage.setItem('spiceCart',JSON.stringify(c));}
+function updateCartBadge(){
+  const c=getCart();const total=c.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('navCartCount').textContent=total||'0';
+  document.getElementById('floatCount').textContent=total;
+  document.getElementById('floatCart').style.display=total>0?'block':'none';
+}
+let currentFilter='all';
+function filter(btn,cat){
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');currentFilter=cat;renderDishes();
+}
+function renderDishes(){
+  const cart=getCart();
+  const filtered=currentFilter==='all'?DISHES:currentFilter==='veg'?DISHES.filter(d=>d.veg):DISHES.filter(d=>d.cat===currentFilter);
+  const grid=document.getElementById('dishGrid');
+  grid.innerHTML=filtered.map(d=>{
+    const ci=cart.find(c=>c.id===d.id);const qty=ci?ci.qty:0;
+    return `<div class="col-6 col-lg-3 col-md-4 reveal">
+      <div class="dish-card">
+        <div class="dish-img">
+          <img src="${d.img}" alt="${d.name}" loading="lazy"/>
+          <span class="dish-badge">${d.badge}</span>
+          <span class="veg-dot ${d.veg?'veg':'nonveg'}">●</span>
+        </div>
+        <div class="dish-body">
+          <div class="dish-name">${d.name}</div>
+          <p class="dish-desc">${d.desc}</p>
+          <div class="dish-tags">${d.tags.map(t=>`<span class="dish-tag">${t}</span>`).join('')}</div>
+          <div class="dish-footer">
+            <div>
+              <div class="dish-price">₹${d.price}</div>
+              <div class="dish-rating"><i class="bi bi-star-fill"></i> ${d.rating} (${d.reviews})</div>
+            </div>
+            <div>
+              <div class="qty-control ${qty>0?'show':''}" id="qc-${d.id}">
+                <button class="qty-btn" onclick="changeQty('${d.id}',-1,'${d.name}',${d.price},'${d.img}')">-</button>
+                <span class="qty-num" id="qn-${d.id}">${qty}</span>
+                <button class="qty-btn" onclick="changeQty('${d.id}',1,'${d.name}',${d.price},'${d.img}')">+</button>
+              </div>
+              <button class="add-btn ${qty>0?'d-none':''}" id="ab-${d.id}" onclick="addToCart('${d.id}','${d.name}',${d.price},'${d.img}',this)"><i class="bi bi-plus-lg"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  observeReveal();
+}
+function addToCart(id,name,price,img,btn){
+  const cart=getCart();cart.push({id,name,price,img,qty:1});
+  saveCart(cart);updateCartBadge();
+  btn.classList.add('d-none');document.getElementById('qc-'+id).classList.add('show');document.getElementById('qn-'+id).textContent=1;
+  showToast('🎉 '+name+' added!');
+}
+function changeQty(id,delta,name,price,img){
+  const cart=getCart();const idx=cart.findIndex(c=>c.id===id);
+  if(idx===-1)return;
+  cart[idx].qty+=delta;
+  if(cart[idx].qty<=0){cart.splice(idx,1);document.getElementById('qc-'+id).classList.remove('show');document.getElementById('ab-'+id).classList.remove('d-none');saveCart(cart);updateCartBadge();return;}
+  document.getElementById('qn-'+id).textContent=cart[idx].qty;
+  saveCart(cart);updateCartBadge();
+}
+function showToast(msg){const t=document.getElementById('cartToast');document.getElementById('cartToastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function observeReveal(){
+  const obs=new IntersectionObserver((e)=>{e.forEach((en,i)=>{if(en.isIntersecting){setTimeout(()=>en.target.classList.add('visible'),i*60);obs.unobserve(en.target);}});},{threshold:0.1});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+const html=document.documentElement;const themeBtn=document.getElementById('themeToggle');
+const t=localStorage.getItem('spiceTheme')||'light';html.setAttribute('data-theme',t);
+updateCartBadge();renderDishes();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

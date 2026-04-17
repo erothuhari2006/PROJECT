@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SpiceLane – Home</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+<style>
+:root{
+  --saffron:#FF6B00;--saffron-light:#FF9240;--saffron-pale:#FFF3E8;
+  --deep:#1A0A00;--cream:#FFF8F0;--white:#FFFFFF;
+  --text:#2D1800;--muted:#8A6A50;--border:#F0DBC8;
+  --card-shadow:0 8px 32px rgba(26,10,0,0.10);
+  --nav-h:72px;
+}
+[data-theme="dark"]{
+  --cream:#1A1208;--white:#261A10;--text:#F5E8D8;--muted:#B89870;
+  --border:#3A2A1A;--card-shadow:0 8px 32px rgba(0,0,0,0.4);
+}
+*{margin:0;padding:0;box-sizing:border-box;transition:background-color 0.3s,color 0.2s,border-color 0.2s;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);}
+
+/* ── NAVBAR ── */
+.navbar{
+  height:var(--nav-h);background:var(--white);
+  box-shadow:0 2px 20px rgba(26,10,0,0.08);
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;padding:0 24px;gap:16px;
+}
+.navbar-brand{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+}
+.brand-icon{
+  width:40px;height:40px;
+  background:linear-gradient(135deg,var(--saffron),var(--saffron-light));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;box-shadow:0 3px 10px rgba(255,107,0,0.3);flex-shrink:0;
+}
+.brand-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--deep);}
+.brand-name span{color:var(--saffron);}
+[data-theme="dark"] .brand-name{color:var(--text);}
+.nav-search{
+  flex:1;max-width:360px;margin:0 16px;position:relative;
+}
+.nav-search input{
+  width:100%;padding:10px 16px 10px 42px;
+  border:2px solid var(--border);border-radius:50px;
+  background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.9rem;
+  outline:none;transition:border-color 0.2s,box-shadow 0.2s;
+}
+.nav-search input:focus{border-color:var(--saffron);box-shadow:0 0 0 3px rgba(255,107,0,0.1);}
+.nav-search input::placeholder{color:var(--muted);}
+.nav-search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);}
+.nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto;}
+.nav-btn{
+  display:flex;align-items:center;gap:6px;padding:9px 16px;
+  border:2px solid var(--border);border-radius:50px;
+  background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;
+  font-size:0.88rem;font-weight:500;cursor:pointer;text-decoration:none;
+  transition:border-color 0.2s,background 0.2s;
+}
+.nav-btn:hover{border-color:var(--saffron);color:var(--saffron);}
+.nav-btn.active{background:var(--saffron);border-color:var(--saffron);color:#fff;}
+.cart-btn{position:relative;}
+.cart-badge{
+  position:absolute;top:-6px;right:-6px;
+  background:var(--saffron);color:#fff;border-radius:50%;
+  width:20px;height:20px;font-size:0.7rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.hamburger{
+  display:none;width:40px;height:40px;border-radius:10px;border:2px solid var(--border);
+  background:transparent;color:var(--text);cursor:pointer;
+  align-items:center;justify-content:center;font-size:1.2rem;
+}
+.mobile-menu{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;
+  background:var(--white);padding:16px 24px;
+  box-shadow:0 8px 24px rgba(26,10,0,0.1);
+  flex-direction:column;gap:10px;
+}
+.mobile-menu.show{display:flex;}
+.mobile-nav-link{
+  padding:12px 16px;border-radius:10px;text-decoration:none;color:var(--text);
+  font-weight:500;display:flex;align-items:center;gap:10px;
+  transition:background 0.2s;
+}
+.mobile-nav-link:hover{background:var(--saffron-pale);color:var(--saffron);}
+
+/* ── HERO CAROUSEL ── */
+.hero{margin-bottom:80px;}
+.carousel-item{height:510px;position:relative;overflow:hidden;}
+.carousel-bg{
+  position:absolute;inset:0;background-size:cover;background-position:center;
+  transform:scale(1.05);transition:transform 6s ease;filter:brightness(0.55);
+}
+.carousel-item.active .carousel-bg{transform:scale(1);}
+.carousel-caption-custom{
+  position:absolute;inset:0;display:flex;align-items:center;
+  padding:80px 8% 0 ;
+}
+#regions{
+  margin-top:450px; 
+}
+.hero-text{animation:heroSlide 0.8s cubic-bezier(0.22,1,0.36,1) both;}
+@keyframes heroSlide{from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:translateX(0);}}
+.hero-tag{
+  background:var(--saffron);color:#fff;font-size:0.8rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;padding:6px 14px;
+  border-radius:50px;display:inline-block;margin-bottom:16px;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3.6rem);font-weight:900;color:#fff;
+  line-height:1.1;margin-bottom:16px;text-shadow:0 2px 12px rgba(0,0,0,0.3);
+}
+.hero-sub{color:rgba(255,255,255,0.82);font-size:1.05rem;margin-bottom:28px;max-width:460px;}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--saffron);color:#fff;border:none;
+  padding:14px 28px;border-radius:50px;font-size:0.97rem;font-weight:600;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 6px 20px rgba(255,107,0,0.4);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,107,0,0.5);color:#fff;}
+.hero-cta-outline{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,0.15);backdrop-filter:blur(4px);
+  color:#fff;border:2px solid rgba(255,255,255,0.5);
+  padding:12px 26px;border-radius:50px;font-size:0.97rem;font-weight:600;
+  text-decoration:none;margin-left:12px;
+  transition:background 0.2s,border-color 0.2s;
+}
+.hero-cta-outline:hover{background:rgba(255,255,255,0.25);border-color:#fff;color:#fff;}
+.carousel-indicators-custom{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;
+}
+.carousel-indicators-custom span{
+  width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);
+  cursor:pointer;transition:all 0.3s;
+}
+.carousel-indicators-custom span.active{background:#fff;width:24px;border-radius:4px;}
+/* ── SECTION HEADINGS ── */
+section{padding:72px 0;}
+.section-tag{
+  display:inline-block;background:var(--saffron-pale);color:var(--saffron);
+  font-size:0.78rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  padding:5px 14px;border-radius:50px;margin-bottom:10px;
+}
+.section-title{
+  font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:900;color:var(--text);line-height:1.2;
+}
+.section-title span{color:var(--saffron);}
+.section-sub{color:var(--muted);font-size:0.97rem;max-width:540px;margin-top:8px;}
+
+/* ── REGION CARDS ── */
+.region-card{
+  border-radius:20px;overflow:hidden;position:relative;
+  aspect-ratio:4/5;cursor:pointer;
+  box-shadow:var(--card-shadow);
+  transition:transform 0.3s,box-shadow 0.3s;
+  display:block;text-decoration:none;
+}
+.region-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(26,10,0,0.18);}
+.region-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.4s;
+}
+.region-card:hover img{transform:scale(1.07);}
+.region-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,10,0,0.85) 0%,rgba(26,10,0,0.2) 50%,transparent 80%);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:24px;
+}
+.region-emoji{font-size:2.4rem;margin-bottom:10px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4));}
+.region-name{
+  font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;
+  color:#fff;margin-bottom:4px;
+}
+.region-count{color:rgba(255,255,255,0.7);font-size:0.88rem;}
+.region-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--saffron);color:#fff;border:none;
+  padding:8px 18px;border-radius:50px;font-size:0.85rem;font-weight:600;
+  margin-top:12px;transition:transform 0.2s;
+}
+.region-card:hover .region-btn{transform:translateX(4px);}
+
+/* ── OFFER BANNER ── */
+.offer-banner{
+  background:linear-gradient(135deg,var(--saffron) 0%,#E8520A 50%,#D44400 100%);
+  border-radius:20px;padding:40px;overflow:hidden;position:relative;
+}
+.offer-banner::before{
+  content:'';position:absolute;right:-40px;top:-40px;
+  width:220px;height:220px;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+}
+.offer-banner::after{
+  content:'';position:absolute;right:60px;bottom:-60px;
+  width:160px;height:160px;border-radius:50%;
+  background:rgba(255,255,255,0.06);
+}
+.offer-title{
+  font-family:'Playfair Display',serif;font-size:2.2rem;
+  font-weight:900;color:#fff;line-height:1.2;
+}
+.offer-sub{color:rgba(255,255,255,0.85);margin:10px 0 22px;font-size:1rem;}
+.offer-code{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);
+  border:2px dashed rgba(255,255,255,0.5);border-radius:10px;
+  padding:10px 18px;color:#fff;font-size:1.1rem;font-weight:700;
+  letter-spacing:2px;cursor:pointer;margin-bottom:20px;
+}
+.offer-emoji{font-size:5rem;line-height:1;}
+
+/* ── FEATURES ── */
+.feature-card{
+  background:var(--white);border-radius:18px;padding:28px 24px;
+  box-shadow:var(--card-shadow);
+  transition:transform 0.3s,box-shadow 0.3s;
+  border:1px solid var(--border);
+}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(26,10,0,0.12);}
+.feature-icon{
+  width:54px;height:54px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  margin-bottom:16px;
+}
+.feature-title{font-weight:700;font-size:1rem;margin-bottom:8px;}
+.feature-sub{color:var(--muted);font-size:0.88rem;line-height:1.6;}
+
+/* ── POPULAR DISHES ── */
+.dish-card{
+  background:var(--white);border-radius:18px;overflow:hidden;
+  box-shadow:var(--card-shadow);border:1px solid var(--border);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.dish-card:hover{transform:translateY(-6px);box-shadow:0 16px 44px rgba(26,10,0,0.12);}
+.dish-img{position:relative;overflow:hidden;height:180px;}
+.dish-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+.dish-card:hover .dish-img img{transform:scale(1.08);}
+.dish-badge{
+  position:absolute;top:12px;left:12px;
+  background:var(--saffron);color:#fff;font-size:0.75rem;font-weight:700;
+  padding:4px 10px;border-radius:50px;letter-spacing:0.5px;
+}
+.dish-fav{
+  position:absolute;top:12px;right:12px;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,0.9);backdrop-filter:blur(4px);
+  border:none;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;cursor:pointer;color:var(--muted);
+  transition:color 0.2s,transform 0.2s;
+}
+.dish-fav:hover,.dish-fav.active{color:#E74C3C;transform:scale(1.2);}
+.dish-body{padding:16px;}
+.dish-region{font-size:0.75rem;font-weight:600;color:var(--saffron);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.dish-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+.dish-desc{font-size:0.82rem;color:var(--muted);margin-bottom:12px;line-height:1.5;}
+.dish-footer{display:flex;align-items:center;justify-content:space-between;}
+.dish-price{font-size:1.15rem;font-weight:700;color:var(--saffron);}
+.dish-rating{display:flex;align-items:center;gap:4px;font-size:0.82rem;color:var(--muted);}
+.dish-rating i{color:#F59E0B;}
+.add-btn{
+  background:var(--saffron);color:#fff;border:none;
+  width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 3px 10px rgba(255,107,0,0.3);
+}
+.add-btn:hover{transform:scale(1.1);box-shadow:0 6px 16px rgba(255,107,0,0.4);}
+.add-btn.added{background:var(--deep);}
+
+/* ── TESTIMONIALS ── */
+.testimonial-card{
+  background:var(--white);border-radius:18px;padding:28px;
+  box-shadow:var(--card-shadow);border:1px solid var(--border);
+}
+.stars{color:#F59E0B;font-size:1rem;margin-bottom:12px;}
+.testimonial-text{font-size:0.95rem;color:var(--text);line-height:1.7;margin-bottom:18px;font-style:italic;}
+.testimonial-author{display:flex;align-items:center;gap:12px;}
+.author-avatar{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--saffron),var(--saffron-light));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1rem;color:#fff;flex-shrink:0;
+}
+.author-name{font-weight:700;font-size:0.9rem;color:var(--text);}
+.author-loc{font-size:0.8rem;color:var(--muted);}
+
+/* ── FOOTER ── */
+footer{background:var(--deep);border-top:1px solid rgba(255,255,255,0.08);padding:52px 0 28px;}
+.footer-brand{margin-bottom:18px;}
+.footer-desc{color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.7;max-width:240px;}
+.footer-h{font-weight:700;color:#fff;font-size:0.85rem;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:16px;}
+.footer-link{display:block;color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.9rem;margin-bottom:9px;transition:color 0.2s;}
+.footer-link:hover{color:var(--saffron);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.08);
+  margin-top:40px;padding-top:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  color:rgba(255,255,255,0.4);font-size:0.82rem;flex-wrap:wrap;gap:10px;
+}
+
+
+/* ── TOAST ── */
+.toast-cart{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  background:var(--deep);color:#fff;padding:14px 20px;border-radius:14px;
+  font-size:0.9rem;font-weight:500;box-shadow:0 8px 28px rgba(0,0,0,0.25);
+  display:flex;align-items:center;gap:10px;
+  transform:translateY(100px);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.toast-cart.show{transform:translateY(0);}
+
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:992px){
+  .nav-search{display:none;}
+  .hamburger{display:flex;}
+  .nav-actions .nav-btn:not(.cart-btn){display:none;}
+}
+@media(max-width:576px){
+  .carousel-item{height:400px;}
+  .hero-title{font-size:1.8rem;}
+  .offer-banner{padding:24px;}
+  .offer-emoji{display:none;}
+  .newsletter-form{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="navbar-brand" href="main.html">
+    <div class="brand-icon">🍛</div>
+    <div class="brand-name d-none d-sm-block">Spice<span>Lane</span></div>
+  </a>
+  <div class="nav-search">
+    <i class="bi bi-search"></i>
+    <input type="text" id="searchInput" placeholder="Search for dishes, cuisines..."/>
+  </div>
+  <div class="nav-actions">
+    <a href="main.html" class="nav-btn active d-none d-lg-flex">
+      <i class="bi bi-house-door-fill"></i> Home
+    </a>
+    <a href="cart.html" class="nav-btn cart-btn">
+      <i class="bi bi-cart3"></i>
+      <span id="navCartCount" class="cart-badge">0</span>
+    </a>
+    <a href="login.html" class="nav-btn d-none d-lg-flex" id="loginNavBtn">
+      <i class="bi bi-person-circle"></i> Login
+    </a>
+    <button class="hamburger" id="hamburger">
+      <i class="bi bi-list"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="main.html" class="mobile-nav-link"><i class="bi bi-house-door"></i>Home</a>
+  <a href="southindian.html" class="mobile-nav-link"><i class="bi bi-egg-fried"></i>South Indian</a>
+  <a href="northindian.html" class="mobile-nav-link"><i class="bi bi-fire"></i>North Indian</a>
+  <a href="chinese.html" class="mobile-nav-link"><i class="bi bi-stars"></i>Chinese</a>
+  <a href="cart.html" class="mobile-nav-link"><i class="bi bi-cart3"></i>Cart</a>
+  <a href="login.html" class="mobile-nav-link"><i class="bi bi-person-circle"></i>Login</a>
+</div>
+
+<!-- HERO CAROUSEL -->
+<div class="hero" id="heroCarousel">
+  <div class="carousel-slides" id="carouselSlides">
+
+    <!-- Slide 1 -->
+    <div class="carousel-item active" id="slide0">
+      <div class="carousel-bg" style="background-image:url('https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=1400&q=80')"></div>
+      <div class="carousel-caption-custom">
+        <div class="hero-text">
+          <span class="hero-tag">🔥 Most Ordered</span>
+          <h1 class="hero-title">Authentic South<br/>Indian Delights</h1>
+          <p class="hero-sub">Crispy dosas, fluffy idlis, and aromatic biryanis – taste the soul of South India.</p>
+          <a href="southindian.html" class="hero-cta"><i class="bi bi-arrow-right-circle"></i>Explore Menu</a>
+          <a href="#regions" class="hero-cta-outline">View All Regions</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="carousel-item" id="slide1" style="display:none;">
+      <div class="carousel-bg" style="background-image:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1400&q=80')"></div>
+      <div class="carousel-caption-custom">
+        <div class="hero-text">
+          <span class="hero-tag">🫓 Fan Favourite</span>
+          <h1 class="hero-title">Royal North<br/>Indian Cuisine</h1>
+          <p class="hero-sub">Buttery naans, rich curries, and sizzling tandoors – the grandeur of the north.</p>
+          <a href="northindian.html" class="hero-cta"><i class="bi bi-arrow-right-circle"></i>Explore Menu</a>
+          <a href="#regions" class="hero-cta-outline">View All Regions</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-item" id="slide2" style="display:none;">
+      <div class="carousel-bg" style="background-image:url('https://images.unsplash.com/photo-1563245372-f21724e3856d?w=1400&q=80')"></div>
+      <div class="carousel-caption-custom">
+        <div class="hero-text">
+          <span class="hero-tag">🥡 New Arrival</span>
+          <h1 class="hero-title">Irresistible<br/>Chinese Flavours</h1>
+          <p class="hero-sub">Wok-tossed noodles, dim sums, and fiery schezwan – a journey to the Far East.</p>
+          <a href="chinese.html" class="hero-cta"><i class="bi bi-arrow-right-circle"></i>Explore Menu</a>
+          <a href="#regions" class="hero-cta-outline">View All Regions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button onclick="prevSlide()" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);border:2px solid rgba(255,255,255,0.4);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+    <i class="bi bi-chevron-left"></i>
+  </button>
+  <button onclick="nextSlide()" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);border:2px solid rgba(255,255,255,0.4);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+
+  <div class="carousel-indicators-custom">
+    <span class="active" onclick="goSlide(0)"></span>
+    <span onclick="goSlide(1)"></span>
+    <span onclick="goSlide(2)"></span>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="row text-center g-0">
+      <div class="col-6 col-md-3 stat-item border-end border-warning border-opacity-25 py-2">
+        <div class="stat-num" data-target="250">0</div>
+        <div class="stat-label">Menu Items</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item border-end border-warning border-opacity-25 py-2">
+        <div class="stat-num" data-target="50000">0</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item border-end border-warning border-opacity-25 py-2">
+        <div class="stat-num" data-target="30">0</div>
+        <div class="stat-label">Min Avg Delivery</div>
+      </div>
+      <div class="col-6 col-md-3 stat-item py-2">
+        <div class="stat-num" data-target="4.4">0</div>
+        <div class="stat-label">App Rating ⭐</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGIONS -->
+<section id="regions">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-tag">Explore Cuisines</span>
+      <h2 class="section-title">Choose Your <span>Flavour Region</span></h2>
+      <p class="section-sub mx-auto">Dive into India's rich culinary heritage or explore the wonders of Chinese cuisine — all delivered to your door.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <a href="southindian.html" class="region-card">
+          <img src="https://images.unsplash.com/photo-1630383249896-424e482df921?w=600&q=80" alt="South Indian"/>
+          <div class="region-overlay">
+            <div class="region-emoji">🍚</div>
+            <div class="region-name">South Indian</div>
+            <div class="region-count">30+ iconic dishes</div>
+            <div class="region-btn">Explore <i class="bi bi-arrow-right"></i></div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="col-md-4 reveal">
+        <a href="northindian.html" class="region-card">
+          <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&q=80" alt="North Indian"/>
+          <div class="region-overlay">
+            <div class="region-emoji">🫓</div>
+            <div class="region-name">North Indian</div>
+            <div class="region-count">35+ royal dishes</div>
+            <div class="region-btn">Explore <i class="bi bi-arrow-right"></i></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 reveal">
+        <a href="chinese.html" class="region-card">
+          <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80" alt="Chinese"/>
+          <div class="region-overlay">
+            <div class="region-emoji">🥡</div>
+            <div class="region-name">Chinese</div>
+            <div class="region-count">28+ wok dishes</div>
+            <div class="region-btn">Explore <i class="bi bi-arrow-right"></i></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER BANNER -->
+<section class="py-4">
+  <div class="container reveal">
+    <div class="offer-banner">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div style="background:rgba(255,255,255,0.2);display:inline-block;padding:5px 14px;border-radius:50px;font-size:0.8rem;color:#fff;font-weight:700;letter-spacing:1px;margin-bottom:12px;">🎉 LIMITED TIME OFFER</div>
+          <div class="offer-title">Get 40% Off<br/>Your First Order!</div>
+          <p class="offer-sub">Use the code below at checkout. Valid on all cuisine types for first-time users.</p>
+          <div class="offer-code" onclick="copyCode(this)">
+            <i class="bi bi-scissors"></i> SPICE40
+            <span style="font-size:0.75rem;font-weight:500;opacity:0.8;">(click to copy)</span>
+          </div>
+          <a href="main.html" class="hero-cta d-inline-flex" style="margin-top:4px;">
+            <i class="bi bi-bag-fill"></i> Order Now
+          </a>
+        </div>
+        <div class="col-md-4 text-end d-none d-md-block">
+          <div class="offer-emoji">🎁</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="padding:60px 0;">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-tag">Why SpiceLane</span>
+      <h2 class="section-title">We Deliver <span>More Than Food</span></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-md-3 reveal">
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#FFF3E8;color:var(--saffron);">⚡</div>
+          <div class="feature-title">30-Min Delivery</div>
+          <p class="feature-sub">Lightning-fast delivery guaranteed to your doorstep, hot and fresh.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#E8F5E9;color:#2ECC71;">🛡️</div>
+          <div class="feature-title">Safe & Hygienic</div>
+          <p class="feature-sub">All partner restaurants meet our strict hygiene and quality standards.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#E3F2FD;color:#2196F3;">📍</div>
+          <div class="feature-title">Live Tracking</div>
+          <p class="feature-sub">Track your order in real-time from our kitchen to your door step .</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="feature-card">
+          <div class="feature-icon" style="background:#FCE4EC;color:#E91E63;">💳</div>
+          <div class="feature-title">Secure Payments</div>
+          <p class="feature-sub">UPI, cards, wallets – multiple secure payment options available.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POPULAR DISHES -->
+<section style="padding:60px 0;background:var(--cream);">
+  <div class="container">
+    <div class="d-flex align-items-end justify-content-between mb-5 reveal flex-wrap gap-3">
+      <div>
+        <span class="section-tag">Trending Now</span>
+        <h2 class="section-title">Most <span>Loved Dishes</span></h2>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="filter-btn active" data-filter="all" onclick="filterDishes(this,'all')">All</button>
+        <button class="filter-btn" data-filter="south" onclick="filterDishes(this,'south')">South Indian</button>
+        <button class="filter-btn" data-filter="north" onclick="filterDishes(this,'north')">North Indian</button>
+        <button class="filter-btn" data-filter="chinese" onclick="filterDishes(this,'chinese')">Chinese</button>
+      </div>
+    </div>
+    <div class="row g-4" id="dishGrid">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding:60px 0;">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-tag">Customer Reviews</span>
+      <h2 class="section-title">What Our <span>Foodies Say</span></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"The Butter Chicken was absolutely divine. Arrived hot, perfectly packed, and tasted like my mom's cooking. SpiceLane never disappoints!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">P</div>
+            <div><div class="author-name">Priya Nair</div><div class="author-loc">📍 Bangalore</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Ordered Masala Dosa at midnight and it arrived in 28 minutes! The chutney was fresh and the dosa perfectly crisp. Incredible service."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:linear-gradient(135deg,#2ECC71,#27AE60);">R</div>
+            <div><div class="author-name">Rahul Menon</div><div class="author-loc">📍 Chennai</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="testimonial-card">
+          <div class="stars">★★★★☆</div>
+          <p class="testimonial-text">"Hakka Noodles and Manchurian combo is to die for. The packaging keeps it fresh and the delivery tracking is super helpful. Highly recommended!"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:linear-gradient(135deg,#3498DB,#2980B9);">A</div>
+            <div><div class="author-name">Anjali Singh</div><div class="author-loc">📍 Mumbai</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="footer-brand">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--saffron),var(--saffron-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🍛</div>
+            <span style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#fff;">Spice<span style="color:var(--saffron);">Lane</span></span>
+          </div>
+        </div>
+        <p class="footer-desc">Bringing authentic Indian and Asian flavours from the best restaurants straight to your door, hot and fresh.</p>
+      </div>
+      <div class="col-6 col-md-2">
+        <div class="footer-h">Cuisines</div>
+        <a href="southindian.html" class="footer-link">South Indian</a>
+        <a href="northindian.html" class="footer-link">North Indian</a>
+        <a href="chinese.html" class="footer-link">Chinese</a>
+        <a href="cart.html" class="footer-link">Cart</a>
+        </div>        
+            <div class="footer-bottom">
+      <span>© 2025 SpiceLane. All rights reserved.</span>
+      </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast-cart" id="cartToast">
+  <i class="bi bi-check-circle-fill" style="color:var(--saffron);font-size:1.2rem;"></i>
+  <span id="cartToastMsg">Item added to cart!</span>
+</div>
+
+<!-- Filter Styles -->
+<style>
+.filter-btn{
+  padding:8px 18px;border:2px solid var(--border);border-radius:50px;
+  background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;
+  font-size:0.85rem;font-weight:500;cursor:pointer;transition:all 0.2s;
+}
+.filter-btn:hover,.filter-btn.active{
+  background:var(--saffron);border-color:var(--saffron);color:#fff;
+}
+</style>
+
+<script>
+// ── CART ──
+function getCart(){return JSON.parse(localStorage.getItem('spiceCart')||'[]');}
+function saveCart(c){localStorage.setItem('spiceCart',JSON.stringify(c));}
+function updateCartBadge(){
+  const c=getCart();
+  const total=c.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('navCartCount').textContent=total||'0';
+}
+
+// ── CAROUSEL ──
+let currentSlide=0, slideCount=3, slideTimer;
+function showSlide(n){
+  document.querySelectorAll('.carousel-item').forEach((s,i)=>{
+    s.style.display=i===n?'block':'none';
+    s.classList.toggle('active',i===n);
+  });
+  document.querySelectorAll('.carousel-indicators-custom span').forEach((s,i)=>{
+    s.classList.toggle('active',i===n);
+  });
+}
+function nextSlide(){currentSlide=(currentSlide+1)%slideCount;showSlide(currentSlide);resetTimer();}
+function prevSlide(){currentSlide=(currentSlide-1+slideCount)%slideCount;showSlide(currentSlide);resetTimer();}
+function goSlide(n){currentSlide=n;showSlide(n);resetTimer();}
+function resetTimer(){clearInterval(slideTimer);slideTimer=setInterval(nextSlide,5000);}
+slideTimer=setInterval(nextSlide,5000);
+
+// ── MOBILE MENU ──
+document.getElementById('hamburger').addEventListener('click',()=>{
+  document.getElementById('mobileMenu').classList.toggle('show');
+});
+
+
+// ── DISHES DATA ──
+const DISHES=[
+  {id:'s1',name:'Idly & Vada',region:'south',label:'South Indian',price:149,img:'https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&q=80',desc:'It is a perfect balance of soft and crispy with protein.',rating:4.8,badge:'Bestseller'},
+  {id:'n1',name:'Butter Chicken',region:'north',label:'North Indian',price:289,img:'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&q=80',desc:'Tender chicken in rich tomato-butter gravy.',rating:4.9,badge:'#1 Rated'},
+  {id:'c1',name:'Hakka Noodles',region:'chinese',label:'Chinese',price:189,img:'https://thechutneylife.com/wp-content/uploads/2017/09/TYFNgSGl-1367x2048.jpeg',desc:'Wok-tossed noodles with veggies and soy.',rating:4.6,badge:'Popular'},
+  {id:'s2',name:'Idli Sambar',region:'south',label:'South Indian',price:99,img:'https://png.pngtree.com/png-clipart/20250507/original/pngtree-south-indian-dish-idli-sambar-served-in-terracotta-plates-isolated-on-png-image_20937916.png',desc:'Fluffy steamed rice cakes with lentil soup.',rating:4.7,badge:'Healthy'},
+  {id:'n2',name:'Dal Makhani',region:'north',label:'North Indian',price:229,img:'https://www.sharmispassions.com/wp-content/uploads/2012/05/dal-makhani7.jpg',desc:'Slow-cooked black lentils in creamy butter sauce.',rating:4.8,badge:'Vegetarian'},
+  {id:'c2',name:'Veg Manchurian',region:'chinese',label:'Chinese',price:169,img:'https://c.ndtvimg.com/2020-12/3eq2hi3_manchurian_625x300_21_December_20.jpg?im=FaceCrop,algorithm=dnn,width=1200,height=886',desc:'Crispy veggie balls in spicy Manchurian sauce.',rating:4.5,badge:'Spicy 🌶️'},
+  {id:'s3',name:'Chettinad Curry',region:'south',label:'South Indian',price:259,img:'https://img.freepik.com/premium-photo/savory-chicken-chettinad-curry-packed-with-flavor_167857-54718.jpg',desc:'Fiery aromatic chicken curry from Tamil Nadu.',rating:4.7,badge:'Chef Special'},
+  {id:'n3',name:'Paneer Tikka',region:'north',label:'North Indian',price:249,img:'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=400&q=80',desc:'Smoky marinated paneer grilled in tandoor.',rating:4.8,badge:'Starter'},
+];
+
+let currentFilter='all';
+function renderDishes(filter='all'){
+  currentFilter=filter;
+  const grid=document.getElementById('dishGrid');
+  const filtered=filter==='all'?DISHES:DISHES.filter(d=>d.region===filter);
+  const cart=getCart();
+  grid.innerHTML=filtered.map(d=>{
+    const inCart=cart.find(c=>c.id===d.id);
+    return `<div class="col-6 col-md-3 reveal dish-item" data-region="${d.region}">
+      <div class="dish-card">
+        <div class="dish-img">
+          <img src="${d.img}" alt="${d.name}" loading="lazy"/>
+          <span class="dish-badge">${d.badge}</span>
+          <button class="dish-fav${inCart?' active':''}" onclick="toggleFav(this)">${inCart?'❤️':'🤍'}</button>
+        </div>
+        <div class="dish-body">
+          <div class="dish-region">${d.label}</div>
+          <div class="dish-name">${d.name}</div>
+          <p class="dish-desc">${d.desc}</p>
+          <div class="dish-footer">
+            <div>
+              <div class="dish-price">₹${d.price}</div>
+              <div class="dish-rating"><i class="bi bi-star-fill"></i> ${d.rating} (${Math.floor(Math.random()*400+100)})</div>
+            </div>
+            <button class="add-btn${inCart?' added':''}" onclick="addToCart('${d.id}','${d.name}',${d.price},'${d.img}',this)" title="Add to cart">
+              ${inCart?'<i class="bi bi-check-lg"></i>':'<i class="bi bi-plus-lg"></i>'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  observeReveal();
+}
+
+function filterDishes(btn,filter){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDishes(filter);
+}
+
+function addToCart(id,name,price,img,btn){
+  const cart=getCart();
+  const existing=cart.find(c=>c.id===id);
+  if(existing){existing.qty++;}
+  else{cart.push({id,name,price,img,qty:1});}
+  saveCart(cart);updateCartBadge();
+  btn.innerHTML='<i class="bi bi-check-lg"></i>';btn.classList.add('added');
+  showCartToast('🎉 '+name+' added to cart!');
+}
+
+function toggleFav(btn){
+  btn.classList.toggle('active');
+  btn.textContent=btn.classList.contains('active')?'❤️':'🤍';
+}
+
+function showCartToast(msg){
+  const t=document.getElementById('cartToast');
+  document.getElementById('cartToastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ── COPY PROMO CODE ──
+function copyCode(el){
+  navigator.clipboard.writeText('SPICE40').then(()=>{
+    el.innerHTML='<i class="bi bi-check-circle-fill"></i> Copied!';
+    setTimeout(()=>{el.innerHTML='<i class="bi bi-scissors"></i> SPICE40 <span style="font-size:0.75rem;font-weight:500;opacity:0.8;">(click to copy)</span>';},2000);
+  });
+}
+// ── SEARCH ──
+document.getElementById('searchInput').addEventListener('input',function(){
+  const q=this.value.toLowerCase().trim();
+  document.querySelectorAll('.dish-item').forEach(item=>{
+    const name=item.querySelector('.dish-name').textContent.toLowerCase();
+    item.style.display=(q===''||name.includes(q))?'':'none';
+  });
+});
+
+
+// ── SCROLL REVEAL ──
+function observeReveal(){
+  const els=document.querySelectorAll('.reveal:not(.visible)');
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('visible'),i*80);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  els.forEach(el=>obs.observe(el));
+}
+
+// ── INIT ──
+updateCartBadge();
+renderDishes();
+observeReveal();
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
